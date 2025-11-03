@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement; // for restart
+using UnityEngine.SceneManagement; 
 
 public class GameManager : MonoBehaviour
 {
@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
 
     public int score = 0;
-    public float timeRemaining = 20f;   // 60 seconds
+    public float timeRemaining = 20f;   
     private bool gameOver = false;
 
     public AudioSource audioSource;
@@ -75,22 +75,13 @@ public class GameManager : MonoBehaviour
         timerText.text = "Time: " + Mathf.CeilToInt(timeRemaining);
     }
 
-    //void EndGame()
-    //{
-    //    gameOver = true;
-    //    timerText.text = "Time: 0";
-    //    targetColorText.text = "GAME OVER";
-    //    targetColorText.color = Color.white;
-    //    // optional: restart after 3 sec
-    //    Invoke(nameof(RestartGame), 3f);
-    //}
+    
 
     void EndGame()
     {
         gameOver = true;
         timerText.text = "Time: 0";
         targetColorText.text = "";
-        //scoreText.text = "";
         scoreText.gameObject.SetActive(false);
         gameOverUI.SetActive(true);
         finalScoreText.text = "Final Score: " + score;
@@ -101,6 +92,10 @@ public class GameManager : MonoBehaviour
             audioSource.PlayOneShot(winClip);
         else
             audioSource.PlayOneShot(loseClip);
+
+
+        PlayerController.Instance.StopMove();
+
     }
 
     public void RestartGame()
@@ -115,4 +110,13 @@ public class GameManager : MonoBehaviour
         if (c == Color.yellow) return "Yellow";
         return "Unknown";
     }
+
+    public void ReduceScore()
+    {
+        if (gameOver) return;
+
+        score -= 10;  
+        UpdateUI();
+    }
 }
+

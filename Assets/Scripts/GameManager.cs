@@ -14,7 +14,10 @@ public class GameManager : MonoBehaviour
 
     public GameObject gameOverUI;
     public TextMeshProUGUI finalScoreText;
+    public TextMeshProUGUI GameOverText;
 
+
+    public GameObject enemy;
 
     public int score = 0;
     public float timeRemaining = 20f;   
@@ -89,13 +92,23 @@ public class GameManager : MonoBehaviour
         audioSource.Stop();
 
         if (score > 0)
+        {
             audioSource.PlayOneShot(winClip);
+            GameOverText.text = "GAME OVER YOU WIN";
+            GameOverText.color = Color.green; // green for win
+        }
         else
+        {
             audioSource.PlayOneShot(loseClip);
-
+            GameOverText.text = "GAME OVER YOU LOSE";
+            GameOverText.color = Color.red;   // red for lose
+        }
 
         PlayerController.Instance.StopMove();
-
+        if (enemy != null)
+        {
+            Destroy(enemy);
+        }
     }
 
     public void RestartGame()

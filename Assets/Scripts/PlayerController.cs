@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip correctSound;
     public AudioClip wrongSound;
     public AudioClip bomb;
+    public AudioClip CrowCaw;
 
     public GameObject bombExplosionEffect;
     public GameObject collectableparticles;
@@ -118,6 +119,16 @@ public class PlayerController : MonoBehaviour
 
             // Deactivate or destroy the bomb object
             other.gameObject.SetActive(false);
+        }
+        else if (other.CompareTag("Enemy"))
+        {
+            // Play sound for enemy collision
+            audioSource.PlayOneShot(CrowCaw); // Make sure you have an AudioClip called enemyHitSound
+
+            // Reduce score
+            GameManager.Instance.ReduceScore();
+
+           
         }
     }
 }

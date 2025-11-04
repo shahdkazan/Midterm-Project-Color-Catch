@@ -2,12 +2,17 @@
 
 
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
     public float speed = 5f;
     private Rigidbody rb;
+    private float movementX;
+    private float movementY;
+
+
     public AudioSource audioSource;
     public AudioClip correctSound;
     public AudioClip wrongSound;
@@ -39,22 +44,51 @@ public class PlayerController : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
     }
+    //void Update()
+    //{
+    //    movementX = Input.GetAxis("Horizontal");
+    //    movementY = Input.GetAxis("Vertical");
+    //}
+    void OnMove(InputValue movementValue)
+    {
+        Vector2 movementVector = movementValue.Get<Vector2>();
+        movementX = movementVector.x;
+        movementY = movementVector.y;
+    }
     void FixedUpdate()
     {
-        if (!canMove) return;
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
+        //if (!canMove) return;
+        //float moveX = Input.GetAxis("Horizontal");
+        //float moveZ = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(moveX, 0, moveZ);
-        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
+        //Vector3 movement = new Vector3(moveX, 0, moveZ);
+        //rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
+        //----------------
+        //if (!canMove) return;
+
+        //float moveX = Input.GetAxis("Horizontal");
+        //float moveZ = Input.GetAxis("Vertical");
+
+        //Vector3 movement = new Vector3(moveX, 0, moveZ).normalized;
+
+        //rb.AddForce(movement * speed, ForceMode.Force);
+        //----------------
+        Vector3 movement = new Vector3(movementX, 0f, movementY).normalized;
+        rb.AddForce(movement * speed, ForceMode.Force);
     }
 
-    public void StopMove()
-    {
-        canMove = false;
-        rb.linearVelocity = Vector3.zero;       
-        rb.angularVelocity = Vector3.zero; 
-    }
+    //public void StopMove()
+    //{
+    //    canMove = false;
+    //    // stop current motion immediately (classic Rigidbody API)
+    //    rb.linearVelocity = Vector3.zero;
+    //    rb.angularVelocity = Vector3.zero;
+
+    //    rb.linearDamping = 10f;      // kills residual sliding
+    //    rb.angularDamping = 10f;
+
+    //}
+
 
     Color lastPickupColor;
 

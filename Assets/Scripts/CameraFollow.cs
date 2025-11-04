@@ -16,7 +16,9 @@ void Start()
 // LateUpdate is called once per frame after all Update functions have been completed.
 void LateUpdate()
 {
-    // Maintain the same offset between the camera and player throughout the game.
+    if (player == null)
+        return;
+
     transform.position = player.transform.position + offset;
 }
  }

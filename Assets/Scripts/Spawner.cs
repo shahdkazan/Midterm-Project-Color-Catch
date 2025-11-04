@@ -57,6 +57,7 @@ public class Spawner : MonoBehaviour
             if (Vector3.Distance(pos, otherPos) < minDistance)
                 return false;
         }
+        
         return true;
     }
 

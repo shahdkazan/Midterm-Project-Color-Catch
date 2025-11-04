@@ -18,13 +18,14 @@ public class GameManager : MonoBehaviour
 
 
     public GameObject enemy;
+    public GameObject player;
 
     public int score = 0;
     public float timeRemaining = 20f;   
     private bool gameOver = false;
 
     public AudioSource audioSource;
-    public AudioClip backgroundMusic;
+    //public AudioClip backgroundMusic;
     public AudioClip winClip;
     public AudioClip loseClip;
 
@@ -35,9 +36,9 @@ public class GameManager : MonoBehaviour
     {
         PickNewTargetColor();
         UpdateUI();
-        audioSource.clip = backgroundMusic;
-        audioSource.loop = true;
-        audioSource.Play();
+        //audioSource.clip = backgroundMusic;
+        //audioSource.loop = true;
+        //audioSource.Play();
     }
 
     void Update()
@@ -89,7 +90,8 @@ public class GameManager : MonoBehaviour
         gameOverUI.SetActive(true);
         finalScoreText.text = "Final Score: " + score;
 
-        audioSource.Stop();
+        //audioSource.Stop();
+        MusicPlayer.Instance.StopMusic();
 
         if (score > 0)
         {
@@ -104,16 +106,18 @@ public class GameManager : MonoBehaviour
             GameOverText.color = Color.red;   // red for lose
         }
 
-        PlayerController.Instance.StopMove();
-        if (enemy != null)
+        //PlayerController.Instance.StopMove();
+        if (enemy != null & player !=null)
         {
             Destroy(enemy);
+            Destroy(player);
         }
     }
 
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        MusicPlayer.Instance.PlayMusic();
     }
 
     string ColorName(Color c)

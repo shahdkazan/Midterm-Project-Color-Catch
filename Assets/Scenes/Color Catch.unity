@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mountain (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 660433830499707245, guid: 6c4007604bc022f448fc1c1580e16882, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6072337444827864894, guid: 6c4007604bc022f448fc1c1580e16882, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2233,6 +2237,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mountain (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 660433830499707245, guid: 6c4007604bc022f448fc1c1580e16882, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6072337444827864894, guid: 6c4007604bc022f448fc1c1580e16882, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -2329,24 +2337,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6a39bb5eb84e4d488699fd730ec2940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  possibleColors:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  targetColor: {r: 0, g: 0, b: 0, a: 0}
-  targetColorText: {fileID: 1611038966}
-  scoreText: {fileID: 1355735950}
-  timerText: {fileID: 1129589507}
   gameOverUI: {fileID: 1590240616}
   finalScoreText: {fileID: 242630912}
   GameOverText: {fileID: 715435084}
-  enemy: {fileID: 739967504}
-  player: {fileID: 562894633}
-  score: 0
-  timeRemaining: 60
+  targetColorText: {fileID: 1611038966}
+  scoreText: {fileID: 1355735950}
+  timerText: {fileID: 1129589507}
   audioSource: {fileID: 468133528}
+  correctSound: {fileID: 8300000, guid: fadc932b90b71b345846cf5eb3a34708, type: 3}
+  wrongSound: {fileID: 8300000, guid: 97b0d0c662d3c864ab444f7931285baf, type: 3}
   winClip: {fileID: 8300000, guid: 215b7e758c297ec4892b2f718253805a, type: 3}
   loseClip: {fileID: 8300000, guid: 77cd2674b6dd03c4b9f792dc83897f1c, type: 3}
+  enemy: {fileID: 739967504}
+  player: {fileID: 562894633}
+  timeRemaining: 60
 --- !u!4 &468133527
 Transform:
   m_ObjectHideFlags: 0
@@ -2879,8 +2883,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   speed: 5
   audioSource: {fileID: 562894640}
-  correctSound: {fileID: 8300000, guid: fadc932b90b71b345846cf5eb3a34708, type: 3}
-  wrongSound: {fileID: 8300000, guid: 97b0d0c662d3c864ab444f7931285baf, type: 3}
   bomb: {fileID: 8300000, guid: f958a719f6329b2419c4a531b3a7caa9, type: 3}
   CrowCaw: {fileID: 8300000, guid: 26fdeee84655df1408830db33e314fa2, type: 3}
   bombExplosionEffect: {fileID: 933613392}
@@ -3116,7 +3118,7 @@ GameObject:
   - component: {fileID: 564163413}
   - component: {fileID: 564163412}
   - component: {fileID: 564163411}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ramp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3157,8 +3159,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.1303647, y: 1.1047168, z: 1.500712}
+  m_Center: {x: 0.014308439, y: 0.0059631797, z: 0.04166887}
 --- !u!23 &564163412
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6530,7 +6532,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 1
+    enabled: 0
     gradient:
       serializedVersion: 2
       minMaxState: 1
@@ -10284,6 +10286,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mountain (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 660433830499707245, guid: 6c4007604bc022f448fc1c1580e16882, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6072337444827864894, guid: 6c4007604bc022f448fc1c1580e16882, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -10582,6 +10588,10 @@ PrefabInstance:
     - target: {fileID: 660433830499707245, guid: 6c4007604bc022f448fc1c1580e16882, type: 3}
       propertyPath: m_Name
       value: Mountain (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 660433830499707245, guid: 6c4007604bc022f448fc1c1580e16882, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6072337444827864894, guid: 6c4007604bc022f448fc1c1580e16882, type: 3}
       propertyPath: m_RootOrder
@@ -11202,6 +11212,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mountain (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 660433830499707245, guid: 6c4007604bc022f448fc1c1580e16882, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6072337444827864894, guid: 6c4007604bc022f448fc1c1580e16882, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -11421,6 +11435,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6224116358078192158, guid: 98541326b56e6e14eb84d42aa2461bac, type: 3}
   m_PrefabInstance: {fileID: 1409362568}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1199063087 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8386967412903819862, guid: b8b69ec67be734745951e445487d5a36, type: 3}
+  m_PrefabInstance: {fileID: 2899464111397445558}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1211153848
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11532,11 +11551,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spawner
   prefab: {fileID: 1052191136385311153, guid: 59c3b7014c97d2f4589359b5cbed69cd, type: 3}
-  count: 100
   secondPrefab: {fileID: 5895094442828628990, guid: b8de206257ddb604bbb55452d403912c, type: 3}
-  secondCount: 4
-  areaSize: {x: 90, y: 90}
-  minDistance: 6
+  Layer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!4 &1226179921 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6224116358078192158, guid: 98541326b56e6e14eb84d42aa2461bac, type: 3}
@@ -19372,6 +19390,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mountain (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 660433830499707245, guid: 6c4007604bc022f448fc1c1580e16882, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6072337444827864894, guid: 6c4007604bc022f448fc1c1580e16882, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -19971,9 +19993,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1997920969}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.67, y: 0, z: 14.27}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: 0.13076633, z: -0, w: 0.99141324}
+  m_LocalPosition: {x: 0.19877926, y: 0.049310192, z: 0.8025995}
+  m_LocalScale: {x: 0.0592206, y: 0.22803456, z: 0.06860074}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8966787361955775468}
@@ -19996,7 +20018,7 @@ Transform:
   - {fileID: 751921479}
   - {fileID: 2036355581}
   - {fileID: 983105482}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1199063087}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2002498133
 PrefabInstance:
@@ -21159,6 +21181,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8386967412903819862, guid: b8b69ec67be734745951e445487d5a36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1997920970}
     - targetCorrespondingSourceObject: {fileID: 7587211506944476143, guid: b8b69ec67be734745951e445487d5a36, type: 3}
       insertIndex: -1
       addedObject: {fileID: 564163410}
@@ -22177,7 +22202,6 @@ SceneRoots:
   - {fileID: 2899464111397445558}
   - {fileID: 1717993931}
   - {fileID: 925417225}
-  - {fileID: 1997920970}
   - {fileID: 1798185458}
   - {fileID: 1413392561}
   - {fileID: 570449440}

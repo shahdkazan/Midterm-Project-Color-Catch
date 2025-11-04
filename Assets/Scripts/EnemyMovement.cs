@@ -2,29 +2,24 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
-
 {
-    public Transform playerTransform;
-    private NavMeshAgent navMeshAgent;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public Transform playerTransform;  // Reference to the player
+    private NavMeshAgent navMeshAgent; // Reference to the NavMeshAgent component
+
     void Start()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent = GetComponent<NavMeshAgent>(); // Get the NavMeshAgent
         if (navMeshAgent == null)
         {
-            Debug.LogError("no navmesh agent found");
-
+            Debug.LogError("No NavMeshAgent found"); // Warn if missing
         }
-
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (playerTransform != null)
         {
-            navMeshAgent.SetDestination(playerTransform.position);
+            navMeshAgent.SetDestination(playerTransform.position); // Move towards player
         }
-
     }
 }

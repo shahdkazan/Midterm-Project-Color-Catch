@@ -1,116 +1,71 @@
+﻿
 
 
-
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
-    public static PlayerController Instance;
-    public float speed = 5f;
-    private Rigidbody rb;
-    private float movementX;
-    private float movementY;
+   
+    public float speed;                      // Movement speed
+    private Rigidbody rb;                     // Player Rigidbody
+    private float movementX;                  // Horizontal input
+    private float movementY;                  // Vertical input
 
-
+    //audio
     public AudioSource audioSource;
-    public AudioClip correctSound;
-    public AudioClip wrongSound;
     public AudioClip bomb;
     public AudioClip CrowCaw;
 
+    //particles
     public GameObject bombExplosionEffect;
     public GameObject collectableparticles;
 
-    private bool canMove = true;
+ 
+   
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    void Awake()
-    {
-        
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject); 
-            return;
-        }
-
-        rb = GetComponent<Rigidbody>();
-    }
-    //void Update()
-    //{
-    //    movementX = Input.GetAxis("Horizontal");
-    //    movementY = Input.GetAxis("Vertical");
-    //}
+   //called automatically when input action occured and the coverts it to vector 
     void OnMove(InputValue movementValue)
     {
         Vector2 movementVector = movementValue.Get<Vector2>();
         movementX = movementVector.x;
         movementY = movementVector.y;
     }
+
+    //creates a direction vector and applies force on player rb to move it 
     void FixedUpdate()
     {
-        //if (!canMove) return;
-        //float moveX = Input.GetAxis("Horizontal");
-        //float moveZ = Input.GetAxis("Vertical");
+        Vector3 movement = new Vector3(movementX, 0.0f, movementY);
+        rb.AddForce(movement * speed);
 
-        //Vector3 movement = new Vector3(moveX, 0, moveZ);
-        //rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
-        //----------------
-        //if (!canMove) return;
-
-        //float moveX = Input.GetAxis("Horizontal");
-        //float moveZ = Input.GetAxis("Vertical");
-
-        //Vector3 movement = new Vector3(moveX, 0, moveZ).normalized;
-
-        //rb.AddForce(movement * speed, ForceMode.Force);
-        //----------------
-        Vector3 movement = new Vector3(movementX, 0f, movementY).normalized;
-        rb.AddForce(movement * speed, ForceMode.Force);
     }
 
-    //public void StopMove()
-    //{
-    //    canMove = false;
-    //    // stop current motion immediately (classic Rigidbody API)
-    //    rb.linearVelocity = Vector3.zero;
-    //    rb.angularVelocity = Vector3.zero;
-
-    //    rb.linearDamping = 10f;      // kills residual sliding
-    //    rb.angularDamping = 10f;
-
-    //}
-
-
-    Color lastPickupColor;
-
-
-
-
-
+  // This function is called automatically when this GameObject's collider enters a trigger collider 
     void OnTriggerEnter(Collider other)
     {
+        // This checks the tag of the GameObject the collider belongs to
         if (other.CompareTag("Pickup"))
         {
+            //try to get the Renderer component from the pickup object
             var renderer = other.GetComponent<Renderer>();
             if (renderer != null)
             {
+                // Get the color of the pickup
                 Color pickupColor = renderer.material.color;
+
+                //call handlepickup function from gamemanager
                 GameManager.Instance.HandlePickup(pickupColor);
 
-                if (pickupColor == GameManager.Instance.targetColor)
-                    audioSource.PlayOneShot(correctSound);
-                else
-                    audioSource.PlayOneShot(wrongSound);
+            
             }
+            //Creates a new instance of the collectableparticles prefab at the position of the pickup
             GameObject collection = Instantiate(collectableparticles, other.transform.position, Quaternion.identity);
 
             // Get the ParticleSystem component and play it
@@ -119,7 +74,7 @@ public class PlayerController : MonoBehaviour
             {
                 ps.Play();
             }
-
+            //deactivate the collectable object
             other.gameObject.SetActive(false);
         }
         else if (other.CompareTag("Bomb"))
@@ -134,16 +89,16 @@ public class PlayerController : MonoBehaviour
                 ps.Play();
             }
 
-            
-            //Calculate push direction opposite to where the player is facing
-           Vector3 pushDirection = -transform.forward;
-            pushDirection.y = 0.5f; // slight upward lift
+
+        
+            // Define the push direction  (backward + slight upward)
+            Vector3 pushDirection = new Vector3(0, 0.5f, -1f).normalized; 
+
 
             // Apply strong impulse force
             float pushStrength = 9f; // stronger push
             rb.AddForce(pushDirection * pushStrength, ForceMode.Impulse);
             
-
 
             // Call the GameManager function to reduce scorez
             GameManager.Instance.ReduceScore();
@@ -151,13 +106,13 @@ public class PlayerController : MonoBehaviour
             //play a sound or visual effect
             audioSource.PlayOneShot(bomb);
 
-            // Deactivate or destroy the bomb object
+            // Deactivate the bomb object
             other.gameObject.SetActive(false);
         }
         else if (other.CompareTag("Enemy"))
         {
             // Play sound for enemy collision
-            audioSource.PlayOneShot(CrowCaw); // Make sure you have an AudioClip called enemyHitSound
+            audioSource.PlayOneShot(CrowCaw); 
 
             // Reduce score
             GameManager.Instance.ReduceScore();

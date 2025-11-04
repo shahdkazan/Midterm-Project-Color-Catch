@@ -1,59 +1,76 @@
 using UnityEngine;
-using TMPro;
-using UnityEngine.SceneManagement; 
+using TMPro;                  // For handling TextMeshPro UI text
+using UnityEngine.SceneManagement; // For scene reload (restart)
 
 public class GameManager : MonoBehaviour
 {
+    // Singleton instance so other scripts can easily access GameManager
     public static GameManager Instance;
 
-    public Color[] possibleColors = { Color.red, Color.green, Color.yellow };
-    public Color targetColor;
-    public TextMeshProUGUI targetColorText;
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI timerText;
+    // Array of possible colors for pickups
+    private Color[] possibleColors = { Color.red, Color.green, Color.yellow };
+    private Color targetColor;  // The current target color player should collect
 
-    public GameObject gameOverUI;
-    public TextMeshProUGUI finalScoreText;
-    public TextMeshProUGUI GameOverText;
+    // UI Elements
+    public GameObject gameOverUI;            
+    public TextMeshProUGUI finalScoreText;   
+    public TextMeshProUGUI GameOverText;     
+    public TextMeshProUGUI targetColorText;  
+    public TextMeshProUGUI scoreText;       
+    public TextMeshProUGUI timerText;        
 
+    // Audio
+    public AudioSource audioSource; 
+    public AudioClip correctSound;  
+    public AudioClip wrongSound;    
+    public AudioClip winClip;       
+    public AudioClip loseClip;      
 
+    // References to in-game objects
     public GameObject enemy;
     public GameObject player;
 
-    public int score = 0;
-    public float timeRemaining = 20f;   
-    private bool gameOver = false;
+    // Game state variables
+    private int score = 0;           // Player score
+    public float timeRemaining;      // Countdown timer
+    private bool gameOver = false;   // Tracks if the game is over
 
-    public AudioSource audioSource;
-    //public AudioClip backgroundMusic;
-    public AudioClip winClip;
-    public AudioClip loseClip;
-
-
-    void Awake() => Instance = this;
-
-    void Start()
+    // Awake is called before Start used to setup singleton
+    void Awake()
     {
-        PickNewTargetColor();
-        UpdateUI();
-        //audioSource.clip = backgroundMusic;
-        //audioSource.loop = true;
-        //audioSource.Play();
+        if (Instance == null)
+            Instance = this; // Set singleton instance
+        else
+            Destroy(gameObject); // Destroy duplicates
     }
 
+   
+    void Start()
+    {
+        PickNewTargetColor(); // Choose the first target color
+        UpdateUI();           // Initialize UI
+    }
+
+    // Update is called once per frame
     void Update()
     {
-        if (gameOver) return;
+        if (gameOver) return; // Stop timer if game is over
 
+        // Decrease remaining time
         timeRemaining -= Time.deltaTime;
+
+        // If time runs out, end the game
         if (timeRemaining <= 0f)
         {
             timeRemaining = 0f;
             EndGame();
         }
+
+        // Update UI every frame
         UpdateUI();
     }
 
+    // Picks a new target color randomly from possibleColors
     public void PickNewTargetColor()
     {
         targetColor = possibleColors[Random.Range(0, possibleColors.Length)];
@@ -61,65 +78,79 @@ public class GameManager : MonoBehaviour
         targetColorText.color = targetColor;
     }
 
+    // Called when the player picks up a color
     public void HandlePickup(Color pickupColor)
     {
         if (gameOver) return;
 
         if (pickupColor == targetColor)
-            score += 10;
+        {
+            score += 10; // Increase score for correct pickup
+            audioSource.PlayOneShot(correctSound);
+        }
         else
-            score -= 5;
+        {
+            score -= 5; // Decrease score for wrong pickup
+            audioSource.PlayOneShot(wrongSound);
+        }
 
-        UpdateUI();
+        UpdateUI(); // Update score display
     }
 
+    // Updates score and timer UI
     void UpdateUI()
     {
         scoreText.text = "Score: " + score;
         timerText.text = "Time: " + Mathf.CeilToInt(timeRemaining);
     }
 
-    
-
+    // Handles end-of-game logic
     void EndGame()
     {
         gameOver = true;
+
+        // Hide gameplay UI
         timerText.text = "Time: 0";
         targetColorText.text = "";
         scoreText.gameObject.SetActive(false);
+
+        // Show game over UI
         gameOverUI.SetActive(true);
         finalScoreText.text = "Final Score: " + score;
 
-        //audioSource.Stop();
+        // Stop background music
         MusicPlayer.Instance.StopMusic();
 
+        // Show win/lose messages
         if (score > 0)
         {
             audioSource.PlayOneShot(winClip);
             GameOverText.text = "GAME OVER YOU WIN";
-            GameOverText.color = Color.green; // green for win
+            GameOverText.color = Color.green;
         }
         else
         {
             audioSource.PlayOneShot(loseClip);
             GameOverText.text = "GAME OVER YOU LOSE";
-            GameOverText.color = Color.red;   // red for lose
+            GameOverText.color = Color.red;
         }
 
-        //PlayerController.Instance.StopMove();
-        if (enemy != null & player !=null)
+        // Destroy player and enemy objects
+        if (enemy != null && player != null)
         {
             Destroy(enemy);
             Destroy(player);
         }
     }
 
+    // Restart the current scene (game)
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        MusicPlayer.Instance.PlayMusic();
+        MusicPlayer.Instance.PlayMusic(); // Restart background music
     }
 
+    // Returns the name of a color for UI display
     string ColorName(Color c)
     {
         if (c == Color.red) return "Red";
@@ -128,12 +159,12 @@ public class GameManager : MonoBehaviour
         return "Unknown";
     }
 
+    // Reduce score
     public void ReduceScore()
     {
         if (gameOver) return;
 
-        score -= 10;  
+        score -= 10;
         UpdateUI();
     }
 }
-

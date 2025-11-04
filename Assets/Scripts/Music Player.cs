@@ -8,7 +8,7 @@ public class MusicPlayer : MonoBehaviour
 
     void Awake()
     {
-        // keep only one music object
+       
         if (Instance != null)
         {
             Destroy(gameObject);
@@ -16,9 +16,11 @@ public class MusicPlayer : MonoBehaviour
         }
 
         Instance = this;
+        //Do not be destroy when a color catch sence loads 
         DontDestroyOnLoad(gameObject);
     }
 
+    //paly background music and loop
     public void PlayMusic()
     {
        
@@ -28,6 +30,7 @@ public class MusicPlayer : MonoBehaviour
         
     }
 
+    //stop music when game over 
     public void StopMusic()
     {
         audioSource.Stop();

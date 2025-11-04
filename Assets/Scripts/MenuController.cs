@@ -1,13 +1,10 @@
 using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.SceneManagement; // Needed for scene loading
+using UnityEngine.SceneManagement; 
 
 
 public class MenuController : MonoBehaviour
 {
-    //public AudioSource audioSource;
-    //public AudioClip backgroundMusic;
-
+    //call play music function
     private void Start()
     {
         MusicPlayer.Instance.PlayMusic();

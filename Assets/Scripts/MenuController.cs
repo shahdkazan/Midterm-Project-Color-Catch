@@ -15,11 +15,6 @@ public class MenuController : MonoBehaviour
         SceneManager.LoadScene("Color Catch");
     }
 
-    public void QuitGame()
-    {
-        // Quit the application (works in build, not editor)
-        Application.Quit();
-        Debug.Log("Game Quit");
-    }
+   
 }
 

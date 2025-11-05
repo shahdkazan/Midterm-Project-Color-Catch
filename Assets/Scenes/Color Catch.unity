@@ -562,7 +562,7 @@ Transform:
   m_GameObject: {fileID: 99135624}
   serializedVersion: 2
   m_LocalRotation: {x: -0.23172258, y: 0.019836824, z: 0.059756592, w: -0.97074217}
-  m_LocalPosition: {x: 0.8, y: 5.6, z: -12.43}
+  m_LocalPosition: {x: 0.8, y: 7.64, z: -17.06}
   m_LocalScale: {x: 0.19452, y: 1, z: 1.7286}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2881,7 +2881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90d3179e40c3dab418f90e6871f099f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  speed: 5
+  speed: 10
   audioSource: {fileID: 562894640}
   bomb: {fileID: 8300000, guid: f958a719f6329b2419c4a531b3a7caa9, type: 3}
   CrowCaw: {fileID: 8300000, guid: 26fdeee84655df1408830db33e314fa2, type: 3}
@@ -15841,7 +15841,7 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   ColorModule:
-    enabled: 1
+    enabled: 0
     gradient:
       serializedVersion: 2
       minMaxState: 1
